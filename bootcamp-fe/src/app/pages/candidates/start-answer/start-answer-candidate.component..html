@@ -1,0 +1,55 @@
+<div>
+  <nav>
+    <p-menubar [model]="navbar">
+      <ng-template pTemplate="end">
+        <p-overlayPanel #op>
+          <p-menu [model]="profile"> </p-menu>
+        </p-overlayPanel>
+        <p-image
+          src="{{ imgUrl }}"
+          alt="Image"
+          width="50"
+          (click)="op.toggle($event)"
+        >
+        </p-image>
+      </ng-template>
+    </p-menubar>
+  </nav>
+
+  <h2 class="text-center my-4">Ready to start the test?</h2>
+  <div class="h-screen">
+    <div class="flex justify-content-center align-items-center">
+      <div class="flex-1 flex justify-content-center align-items-center">
+        <img class="w-7" src="/assets/start-answer.svg" alt="images" />
+      </div>
+      <div
+        class="flex flex-1 justify-content-center align-items-center gap-3 flex-column mt-4"
+      >
+        <h2>Test Details</h2>
+        <div>
+          <div class="flex gap-5 justify-content-center">
+            <h3>{{totalQuestion?.totalQuestion}} Questions</h3>
+          </div>
+          <div class="flex flex-column gap-1 mt-4 mb-3">
+            <h3>Start Time</h3>
+            <p>{{startDate}}</p>
+          </div>
+          <div class="flex flex-column gap-1 mb-2">
+            <h3>End Time</h3>
+            <p>{{endDate}}</p>
+          </div>
+        </div>
+        <div>
+          <app-button
+            class="btn btn-primary"
+            (click)="onClick()"
+            label="Start"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="text-center p-3">
+    <p>Bootcamp @2023</p>
+  </footer>
+</div>

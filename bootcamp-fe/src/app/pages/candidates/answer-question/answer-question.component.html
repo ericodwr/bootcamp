@@ -1,0 +1,85 @@
+<div>
+  <div class="min-h-screen">
+    <nav>
+      <p-menubar [model]="navbar">
+        <ng-template pTemplate="end">
+          <p-overlayPanel #op>
+            <p-menu [model]="profile"> </p-menu>
+          </p-overlayPanel>
+          <p-image
+            src="{{ imgUrl }}"
+            alt="Image"
+            width="50"
+            (click)="op.toggle($event)"
+          >
+          </p-image>
+        </ng-template>
+      </p-menubar>
+    </nav>
+
+    <div
+      class="flex justify-content-center align-items-center flex-column mt-4 container"
+    >
+      <h2>Questions Candidate</h2>
+      <form [formGroup]="candidateAnswers" (ngSubmit)="onSubmit()" class="w-9">
+        <!-- Question Candidate -->
+        <div
+          class="my-3 grid align-items-start flex-column gy-md-6 gy-2 container"
+        >
+          <div
+            *ngFor="let q of answers.controls; let i = index"
+            formArrayName="data"
+          >
+            <div [formGroupName]="i">
+              <div class="col-12">
+                <label [for]="i" class="form-label"
+                  >{{ i + 1 + ". " + questionList[i].question }}
+                  <span class="text-red-500">*</span></label
+                >
+              </div>
+              <div class="col-12">
+                <textarea
+                  *ngIf="!questionList[i].questionOption"
+                  class="form-control p-3"
+                  [id]="i"
+                  rows="5"
+                  cols="100"
+                  pInputTextarea
+                  formControlName="essayAnswer"
+                >
+                </textarea>
+
+                <div
+                  *ngFor="
+                    let o of questionList[i].questionOption;
+                    let j = index
+                  "
+                  class="mb-2"
+                >
+                  <p-radioButton
+                    [value]="o.id"
+                    [inputId]="o.id"
+                    formControlName="questionOptionIdTemp{{ i }}"
+                    (onClick)="patchOption($event, i)"
+                  ></p-radioButton>
+                  <label [for]="o.id" class="ml-2">{{ o.optionLabel }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <app-button
+              type="submit"
+              [loading]="loading"
+              label="Submit Answer"
+            ></app-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <footer class="text-center p-3">
+    <p>Bootcamp @2023</p>
+  </footer>
+</div>
